@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message by Your Dhunu</title>
+     <style>
+      * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background-image: radial-gradient(
+      circle farthest-corner at 50% 50%,
+      hsl(187 20% 88%) 30%,
+      hsl(149 20% 94%) 100%
+  );
+}
+
+.book {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 42cqmin; /* Increased width */
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: translate 1s;
+  translate: calc(min(var(--c), 1) * 50%) 0%;
+  rotate: 1 0 0 30deg;
+}
+
+.page {
+  --thickness: 4;
+  flex: none;
+  display: flex;
+  width: 100%;
+  font-size: 2.2cqmin; /* Slightly increased font size */
+  pointer-events: all;
+  user-select: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s,
+      rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+  translate: calc(var(--i) * -100%) 0px 0px;
+  transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+  rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+}
+
+.front,
+.back {
+  position: relative;
+  flex: none;
+  width: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-color: #fff;
+  translate: 0px;
+}
+
+.back {
+  translate: -100% 0;
+  rotate: 0 1 0 180deg;
+}
+
+.book {
+  counter-reset: page -1;
+}
+
+.book a {
+  color: inherit;
+}
+
+.page {
+  box-shadow: 0em 0.5em 1em -0.2em #00000020;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 2em;
+  border: 1px solid #0002;
+}
+
+.front:has(img),
+.back:has(img) {
+  padding: 0;
+}
+
+.front img,
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.front::after,
+.back::after {
+  position: absolute;
+  bottom: 1em;
+  counter-increment: page;
+  content: counter(page) ".";
+  font-size: 0.8em;
+}
+
+.cover::after {
+  content: "";
+}
+
+.front::after {
+  right: 1em;
+}
+
+.front {
+  background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.1em 0.5em 0.5em 0.1em;
+}
+
+.back::after {
+  left: 1em;
+}
+
+.back {
+  background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.5em 0.1em 0.1em 0.5em;
+}
+
+.cover {
+  background: radial-gradient(
+          circle farthest-corner at 80% 20%,
+          hsl(150 80% 20% / 0.3) 0%,
+          hsl(170 60% 10% / 0.1) 100%
+      ),
+      hsl(231, 32%, 29%) url("./cover.jpg") 50% / cover;
+  color: hsl(0, 100%, 30%); /* Dark red text color for cover page */
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1px;
+  color: hsl(0, 100%, 30%); /* Dark red heading color */
+}
+
+p {
+  margin-top: 1px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: hsl(0, 100%, 30%); /* Dark red text color for paragraphs */
+}
+
+.front,
+.back {
+  padding: 1.5em;
+  color: hsl(0, 100%, 30%); /* Dark red text color for front and back pages */
+}
+
+.book {
+  width: 40cqmin; /* Slightly increased width */
+}
+
+.page {
+  font-size: 2cqmin; /* Slightly increased font size */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background: linear-gradient(to right, #ff7eb9, #ff65a3, #ff165d);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Emoji Animation */
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0;
+  animation: floatEmojis 6s ease-in-out infinite;
+}
+
+@keyframes floatEmojis {
+  0% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+}
+
+/* Add random timing for each emoji */
+.emoji:nth-child(1) {
+  animation-delay: 0s;
+  left: 10%;
+}
+.emoji:nth-child(2) {
+  animation-delay: 1s;
+  left: 20%;
+}
+.emoji:nth-child(3) {
+  animation-delay: 2s;
+  left: 30%;
+}
+.emoji:nth-child(4) {
+  animation-delay: 3s;
+  left: 40%;
+}
+.emoji:nth-child(5) {
+  animation-delay: 4s;
+  left: 50%;
+}
+.emoji:nth-child(6) {
+  animation-delay: 5s;
+  left: 60%;
+}
+.emoji:nth-child(7) {
+  animation-delay: 6s;
+  left: 70%;
+}
+.emoji:nth-child(8) {
+  animation-delay: 7s;
+  left: 80%;
+}
+.emoji:nth-child(9) {
+  animation-delay: 8s;
+  left: 90%;
+}
+
+
+     </style>
+  </head>
+  <body>
+    <div class="book">
+      <div class="page">
+        <div class="front cover">
+          <h1
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+           To Kuku <3
+          </h1>
+
+          <p
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+          </p>
+        </div>
+        <div class="back">
+          <h2>Where it all begun</h2>
+
+       <p>The beginning of my relationship with you was nothing short of special—it all started on October 7, 2023,
+         the day of our college freshers' event. I still remember the first time I saw you, a moment so simple yet so profound that it marked the start of something beautiful.
+          From that day on, I found myself drawn to you in ways I couldn't explain. I would wait for chances to see you, walking you to class just to steal a few extra moments
+           by your side, and meeting you at the bus stop, making even the briefest conversations feel like treasured memories. Little by little,
+         those everyday gestures became the foundation of my feelings for you, turning ordinary moments into something truly extraordinary. 💖</p>
+          </p>
+        </div>
+      </div>
+      <!--2nd page-->
+      <div class="page">
+        <div class="front">
+          <h2>Falling into place</h2>
+          <p>
+            As days turned into weeks and weeks into months, our bond grew stronger,
+             evolving from a simple friendship into something much deeper. What started as casual conversations and shared moments soon became the highlight of my days. 
+             I found comfort in your presence, laughter in your words, and a quiet kind of happiness just knowing you were around. There was an unspoken understanding between us,
+              a connection that went beyond words. Slowly, I realized it wasn’t just friendship anymore—I wanted to be more than just a friend to you.
+               Every glance, every lingering goodbye, and every small gesture carried a meaning I couldn’t ignore.
+             Somewhere along the way, we had crossed the line between friendship and something far more special.
+          </p>
+        </div>
+        <div class="back">
+          <img src="./1.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--3rd page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Day</h2>
+          <p>
+            Then came January 7, a day that will always hold a special place in my heart—the day I finally gathered the courage to tell you how I truly felt
+          . I had spent weeks planning the perfect surprise, wanting everything to be just right. My heart raced as I stood before you, 
+          knowing that this moment could change everything between us. With nervous excitement, I poured my feelings out, 
+          confessing how you had become the most important part of my life. 
+          The look in your eyes, the way time seemed to pause for a moment—it was all so surreal.
+             And when you smiled, when you accepted my love, that was the moment I knew my world had changed forever.
+          </p>
+        </div>
+        <div class="back">
+         <img src="20241114_142008(0).jpg">
+         
+        </div>
+      </div>
+      <!--4th page-->
+      <div class="page">
+        <div class="front">
+          <h2>Highs And Low</h2>
+          <p>
+            Our relationship has been a journey of love, laughter, and challenges.
+            The highs—effortless conversations, shared dreams, and moments of pure joy—reminded us why we chose each other.
+             The lows—misunderstandings, silence, and doubt—tested our strength.
+           Yet, through every struggle, we grew. We learned to listen, to be patient, 
+           and to fight for what matters. Love was never just about the easy moments;
+            it was about choosing each other, even when it was hard.
+             Despite everything, we’re still here. Not perfect, but real. And that’s what truly matters.
+          </p>
+        </div>
+        <div class="back">
+          <img src="IMG20240214132505.jpg" alt="Img 1" />
+        </div>
+      </div>
+    
+      <div class="page">
+        <div class="front">
+          <h2>You<3</h2>
+          <p>
+            Can we take a moment to appreciate how effortlessly stunning you look in anything you wear? It’s not just the clothes—it’s the confidence, the grace, and the way you carry yourself that make you truly unforgettable.
+
+            You have a presence that turns heads and a charm that captivates hearts.
+            
+            There’s something about you that draws people in—maybe it’s your elegance, your warmth, or just the way you light up any room you walk into. Whatever it is, it’s undeniable, and it makes you absolutely perfect in every way.
+            
+            But beyond your beauty, it’s your kindness and the way you make others feel special that truly set you apart. You radiate positivity, and your energy is something rare and precious.
+            
+            No matter where you are or what you do, you leave a lasting impression. You are not just beautiful—you are extraordinary. 💖✨
+          </p>
+        </div>
+        <div class="back">
+          <img src="IMG20240214132935.jpg" alt="img">
+        </div>
+      </div>
+      <!--7th page-->
+      <div class="page">
+        <div class="front">
+          <h2>Grateful for You</h2>
+          <p>
+            I just wanted to take a moment to let you know how much I appreciate you. From the very start, you’ve been someone truly special—someone I admire more than words can express.
+
+            Meeting you, even for a short time, has been a gift.
+            
+            Your kindness, your presence, and the way you make every conversation feel meaningful mean more to me than you know. I’m grateful that our paths crossed, and no matter what the future holds, I’ll always be thankful for you.
+            
+            Some people leave a mark on our hearts without even trying—and you are one of them. 
+          </p>
+        </div>
+        <div class="back">
+        <img src="20241025_122549.jpg">
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="front">
+          <p>And now, here we are—one year later. It’s hard to believe how far we’ve come since that first day I saw you on October 7, 2023.
+             From stolen glances in the hallways to deep conversations at the bus stop, from friendship to love, 
+             every moment with you has been nothing short of magical. This past year has been filled with laughter,
+              countless memories, and a love that only grows stronger with time.
+               January 7 will always remind me of the day I took the biggest leap of my life, and looking back now, 
+               I wouldn’t change a thing. Through every high and low, you’ve been my happiness, my safe place, 
+            and my greatest love. 
+            Here’s to everything we’ve shared and to the countless years ahead—I can’t wait to spend them all with you.</p>
+        </div>
+        <div class="back cover">
+          <h3>Cutest Queen</h3>
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="emoji">❤️‍🔥</div>
+<div class="emoji">🫶🏻</div>
+<div class="emoji">❤️</div>
+<div class="emoji">💓</div>
+<div class="emoji">❣️</div>
+<div class="emoji">💘</div>
+<div class="emoji">💖</div>
+<div class="emoji">💙</div>
+<div class="emoji">💚</div>
+
+<div class="emoji">💗</div>
+
+<script>
+  const flipBook = (elBook) => {
+    elBook.style.setProperty("--c", 0); // Set current page
+    elBook.querySelectorAll(".page").forEach((page, idx) => {
+      page.style.setProperty("--i", idx);
+      page.addEventListener("click", (evt) => {
+        if (evt.target.closest("a")) return;
+        const curr = evt.target.closest(".back") ? idx : idx + 1;
+        elBook.style.setProperty("--c", curr);
+      });
+    });
+  };
+  
+  document.querySelectorAll(".book").forEach(flipBook);
+  
+</script>
+ 
+  </body>
+</html>
+
